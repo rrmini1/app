@@ -8,11 +8,11 @@
     color: map-get($colors, color);
 
     .footer-link {
-      color: map-get($colors, active-color);
+      color: map-get($colors, color);
 
       &:hover,
       &:focus {
-        color: map-get($colors, active-color);
+        color: map-get($colors, color);
       }
 
       &.disabled {
@@ -21,7 +21,7 @@
     }
 
     .footer-text {
-      color: map-get($colors, color);
+      color: map-get($colors, active-color);
     }
 
     .show > .footer-link,

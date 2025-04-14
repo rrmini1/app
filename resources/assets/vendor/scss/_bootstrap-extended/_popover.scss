@@ -8,13 +8,25 @@
 .popover {
   box-shadow: $popover-box-shadow;
 
+  // Popover header padding and font-size
+  .popover-header {
+    padding-bottom: 0;
+    font-size: $h5-font-size;
+  }
+
+  // Popover body padding
+  .popover-body {
+    padding-top: $spacer;
+  }
+
   .popover-arrow {
     z-index: 1;
   }
-}
-
-// popover header font size override
-.popover-header {
-  padding: $popover-header-padding-x $popover-header-padding-x $popover-header-padding-y;
-  @include font-size($popover-header-font-size);
+  &.bs-popover-auto {
+    &[data-popper-placement='bottom'] > .popover-arrow {
+      &::after {
+        top: 1px;
+      }
+    }
+  }
 }

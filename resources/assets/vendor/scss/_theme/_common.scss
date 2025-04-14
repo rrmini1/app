@@ -5,9 +5,8 @@
   @include text-variant('.text-primary', $background);
   @include bg-variant('.bg-primary', $background);
   @include bg-label-variant('.bg-label-primary', $background);
-  @include border-label-variant('.border-label-primary', $background);
-  @include border-light-variant('.border-light-primary', $background);
   @include template-pagination-theme($background, $color);
+  @include template-pagination-outline-variant('.pagination-outline-primary', $background);
   @include template-progress-bar-theme($background, $color);
   @include template-list-group-theme($background, $color);
   @include template-alert-variant('.alert-primary', $background);
@@ -17,19 +16,19 @@
   @include template-table-variant('primary', shift-color($background, $table-bg-scale));
   @include template-button-variant('.btn-primary', $background, $color);
   @include template-button-outline-variant('.btn-outline-primary', $background, $color);
-  @include template-dropdown-theme(rgba($background, 0.16), $background);
+  @include template-dropdown-theme(rgba-to-hex(rgba($background, 0.16), $rgba-to-hex-bg), $background);
   @include template-nav-theme($background, $color);
   @include template-form-control-theme($background);
   @include template-form-check-theme($background, $color);
   @include template-form-switch-theme($background);
   @include template-file-input-theme($background);
 
+  @include template-material-form-range-variant('', $background);
   @include template-text-divider-variant('.divider-primary', $background);
 
   @include template-navbar-style('.navbar.bg-primary', $primary-color);
   @include template-menu-style('.menu.bg-primary', $primary-color);
   @include template-footer-style('.footer.bg-primary', $primary-color);
-  @include template-toast-theme('.bg-primary', $primary-color, $color);
   @include template-float-label-theme($primary-color);
   @include template-svg-color($primary-color);
 

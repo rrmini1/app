@@ -13,6 +13,27 @@
   align-items: stretch;
 }
 
+.layout-menu-offcanvas .layout-wrapper,
+.layout-menu-fixed-offcanvas .layout-wrapper {
+  overflow: hidden;
+}
+
+// * Display menu toggle on navbar for .layout-menu-offcanvas, .layout-menu-fixed-offcanvas
+
+.layout-menu-offcanvas .layout-navbar .layout-menu-toggle,
+.layout-menu-fixed-offcanvas .layout-navbar .layout-menu-toggle {
+  display: block !important;
+}
+
+// * Hide menu close icon from large screen for .layout-menu-offcanvas, .layout-menu-fixed-offcanvas
+
+@include media-breakpoint-up($menu-collapsed-layout-breakpoint) {
+  .layout-menu-offcanvas .layout-menu .layout-menu-toggle,
+  .layout-menu-fixed-offcanvas .layout-menu .layout-menu-toggle {
+    display: none;
+  }
+}
+
 .layout-page,
 .content-wrapper,
 .content-wrapper > *,
@@ -62,12 +83,13 @@
 // *******************************************************************************
 .layout-navbar {
   position: relative;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.2rem;
   height: $navbar-height;
   flex-wrap: nowrap;
   color: $body-color;
   z-index: 2;
+  backdrop-filter: blur(7.5px);
 
   .navbar {
     transform: translate3d(0, 0, 0);
@@ -76,17 +98,35 @@
     flex-basis: 100%;
   }
 
-  .navbar-search-wrapper {
-    .search-input,
-    .input-group-text {
-      background-color: transparent;
-    }
+  .navbar-dropdown.dropdown-user .dropdown-menu {
+    min-width: 14rem;
   }
   // Style for detached navbar
   &.navbar-detached {
-    box-shadow: $box-shadow-sm;
     // Container layout max-width
     $container-xxl: map-get($container-max-widths, xxl);
+    transition:
+      padding 0.2s ease,
+      background-color 0.18s ease;
+    padding: 0;
+    .layout-navbar-fixed .window-scrolled & {
+      box-shadow: $navbar-search-shadow;
+      padding: 0 $card-spacer-x;
+      .search-input:focus {
+        padding-left: $card-spacer-x;
+        padding-right: $card-spacer-x;
+      }
+    }
+    .layout-navbar-fixed .layout-page:not(.window-scrolled) & {
+      .search-input {
+        background-color: $body-bg;
+      }
+    }
+    .search-input {
+      transition:
+        padding 0.2s ease,
+        background-color 0.18s ease;
+    }
     &.container-xxl {
       max-width: calc(#{$container-xxl} - calc(#{$container-padding-x} * 2));
     }
@@ -116,69 +156,29 @@
     .layout-without-menu & {
       width: calc(100% - calc(#{$container-padding-x} * 2));
     }
-
-    margin: $spacer auto 0;
-    border-radius: $border-radius;
-    padding: 0 $card-spacer-x;
+    @include border-bottom-radius($navbar-suggestion-border-radius);
   }
 
   .search-input-wrapper {
     .search-toggler {
       position: absolute;
-      top: 52%;
-      transform: translateY(-50%);
+      top: 1.25rem;
       right: 1rem;
       z-index: 1;
     }
-
-    .search-input {
-      height: 100%;
-      box-shadow: none;
-    }
   }
-
-  .dropdown-menu[data-bs-popper] {
-    .layout-wrapper & {
-      top: 144%;
-    }
-  }
-
-  // Navbar custom dropdown
-  .navbar-dropdown {
-    .dropdown-menu {
-      min-width: $navbar-dropdown-width;
-      overflow: hidden;
-      .dropdown-item {
-        min-height: 2.375rem;
-      }
-      .last-login {
-        white-space: normal;
-      }
-    }
-    &.dropdown-user {
-      .dropdown-menu {
-        min-width: 14rem;
-      }
-    }
-  }
-  &[class*='bg-']:not(.bg-navbar-theme) {
-    .nav-item {
-      .input-group-text,
-      .dropdown-toggle {
-        color: $white;
-      }
-    }
+  .search-input {
+    height: 100%;
+    box-shadow: none;
   }
 
   @include media-breakpoint-down($menu-collapsed-layout-breakpoint) {
     .navbar-nav {
-      .nav-item {
-        &.dropdown {
-          .dropdown-menu {
-            position: absolute;
-            .last-login {
-              white-space: nowrap;
-            }
+      .nav-item.dropdown {
+        .dropdown-menu {
+          position: absolute;
+          .last-login {
+            white-space: nowrap;
           }
         }
       }
@@ -189,6 +189,9 @@
       .nav-item.dropdown {
         position: static;
         float: left;
+        .badge-notifications {
+          top: auto;
+        }
         .dropdown-menu {
           position: absolute;
           left: 0.9rem;
@@ -199,7 +202,29 @@
     }
   }
 }
+// * Toggle
+// *******************************************************************************
 
+.layout-menu-toggle {
+  display: block;
+
+  // Updated menu toggle icon for menu expanded and collapsed
+  .menu-toggle-icon {
+    font-family: 'remixicon' !important;
+    font-style: normal;
+    font-size: $font-size-xl;
+    &::before {
+      @include media-breakpoint-down($menu-collapsed-layout-breakpoint) {
+        content: '\eb99';
+      }
+      .layout-menu-collapsed & {
+        @include media-breakpoint-down($menu-collapsed-layout-breakpoint) {
+          content: '\eb99';
+        }
+      }
+    }
+  }
+}
 // * Navbar require high z-index as we use z-index for menu slide-out for below large screen
 @include media-breakpoint-down($menu-collapsed-layout-breakpoint) {
   .layout-navbar {
@@ -290,6 +315,14 @@ html:not(.layout-footer-fixed) .content-wrapper {
   }
 }
 
+// * Hidden navbar layout
+// *******************************************************************************
+.layout-navbar-hidden {
+  .layout-navbar {
+    display: none;
+  }
+}
+
 // * Fixed navbar layout
 // *******************************************************************************
 
@@ -299,11 +332,6 @@ html:not(.layout-footer-fixed) .content-wrapper {
     top: 0;
     right: 0;
     left: 0;
-  }
-  .container-p-y {
-    &:not([class^='pt-']):not([class*=' pt-']) {
-      padding-top: calc($container-padding-y + 0.25rem) !important;
-    }
   }
 }
 
@@ -361,6 +389,12 @@ html:not(.layout-footer-fixed) .content-wrapper {
     will-change:
       transform,
       -webkit-transform;
+
+    .layout-menu-flipped & {
+      right: 0 !important;
+      left: auto !important;
+      transform: translate3d(100%, 0, 0);
+    }
 
     .layout-menu-expanded & {
       transform: translate3d(0, 0, 0) !important;

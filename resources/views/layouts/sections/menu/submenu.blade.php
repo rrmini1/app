@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Route;
           @endif
           <div>{{ isset($submenu->name) ? __($submenu->name) : '' }}</div>
           @isset($submenu->badge)
-            <div class="badge rounded-pill bg-{{ $submenu->badge[0] }} text-uppercase ms-auto">{{ $submenu->badge[1] }}</div>
+            <div class="badge bg-{{ $submenu->badge[0] }} rounded-pill ms-auto">{{ $submenu->badge[1] }}</div>
           @endisset
         </a>
 

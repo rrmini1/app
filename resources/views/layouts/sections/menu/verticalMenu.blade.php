@@ -3,12 +3,14 @@
   <!-- ! Hide app brand if navbar-full -->
   <div class="app-brand demo">
     <a href="{{url('/')}}" class="app-brand-link">
-      <span class="app-brand-logo demo">@include('_partials.macros',["width"=>25,"withbg"=>'var(--bs-primary)'])</span>
-      <span class="app-brand-text demo menu-text fw-bold ms-2">{{config('variables.templateName')}}</span>
+      <span class="app-brand-logo demo me-1">
+        @include('_partials.macros',["height"=>20])
+      </span>
+      <span class="app-brand-text demo menu-text fw-semibold ms-2">{{config('variables.templateName')}}</span>
     </a>
 
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-      <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+      <i class="menu-toggle-icon d-xl-block align-middle"></i>
     </a>
   </div>
 
@@ -21,7 +23,7 @@
 
       {{-- menu headers --}}
       @if (isset($menu->menuHeader))
-        <li class="menu-header small text-uppercase">
+        <li class="menu-header mt-7">
             <span class="menu-header-text">{{ __($menu->menuHeader) }}</span>
         </li>
       @else
@@ -58,7 +60,7 @@
           @endisset
           <div>{{ isset($menu->name) ? __($menu->name) : '' }}</div>
           @isset($menu->badge)
-            <div class="badge rounded-pill bg-{{ $menu->badge[0] }} text-uppercase ms-auto">{{ $menu->badge[1] }}</div>
+            <div class="badge bg-{{ $menu->badge[0] }} rounded-pill ms-auto">{{ $menu->badge[1] }}</div>
           @endisset
         </a>
 

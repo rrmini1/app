@@ -58,7 +58,7 @@
 
                     <p class="text-center">
                         <span>{{__('auth.login.new')}}</span>
-                        <a href="{{url('auth/register-basic')}}">
+                        <a href="{{route('register')}}">
                             <span>{{__('auth.login.createAccount')}}</span>
                         </a>
                     </p>

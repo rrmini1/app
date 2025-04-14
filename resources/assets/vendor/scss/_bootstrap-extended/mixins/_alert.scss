@@ -33,11 +33,10 @@
 
   #{$parent} {
     hr {
-      color: $color !important;
+      background-color: $color !important;
     }
     .alert-icon {
       background-color: $color;
-      box-shadow: 0 0 0 0.125rem rgba($color, 0.16);
     }
   }
 }

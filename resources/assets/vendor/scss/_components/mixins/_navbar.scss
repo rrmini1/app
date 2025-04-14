@@ -5,7 +5,6 @@
   $colors: get-navbar-prop($bg, $active-color, $color, $border);
 
   #{$parent} {
-    background-color: rgba(map-get($colors, bg), 0.88) !important;
     color: map-get($colors, color);
 
     .navbar-brand,
@@ -28,8 +27,8 @@
     .search-input-wrapper {
       .search-input,
       .search-toggler {
-        background-color: $bg !important;
         color: map-get($colors, color);
+        @include border-top-radius(0);
       }
     }
 

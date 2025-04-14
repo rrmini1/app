@@ -5,10 +5,3 @@
 .modal-open .tooltip {
   z-index: $zindex-modal + 2;
 }
-
-.tooltip-inner {
-  font-weight: $font-weight-medium;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-}
