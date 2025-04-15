@@ -90,9 +90,7 @@
 
           <!-- navbar button: Start -->
           <li>
-            <a href="{{route('login')}}"
-               class="btn btn-primary"
-               target="_blank">
+            <a href="{{route('login')}}" class="btn btn-primary">
               <span class="tf-icons icon-base bx bx-log-in-circle scaleX-n1-rtl me-md-1"></span>
               <span class="d-none d-md-block">{{ __('navbar.login') }}</span>
             </a>
