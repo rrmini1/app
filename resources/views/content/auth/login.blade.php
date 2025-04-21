@@ -26,10 +26,11 @@
                     <h4 class="mb-1"> {{__('auth.login.title') . ' ' . config('variables.templateName')}}! 👋</h4>
                     <p class="mb-6">{{ __('auth.login.subtitle') }}</p>
 
-                    <form id="formAuthentication" class="mb-6" action="{{url('/')}}" method="GET">
+                    <form id="formAuthentication" class="mb-6" action="{{ route('login' )}}" method="post">
+                        @csrf
                         <div class="mb-6">
                             <label for="email" class="form-label">{{ __('auth.login.email') }}</label>
-                            <input type="text" class="form-control" id="email" name="email-username" placeholder="{{ __('auth.login.enterEmail') }}" autofocus>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="{{ __('auth.login.enterEmail') }}" autofocus>
                         </div>
                         <div class="mb-6 form-password-toggle">
                             <label class="form-label" for="password">{{ __('auth.login.password') }}</label>
@@ -58,7 +59,7 @@
 
                     <p class="text-center">
                         <span>{{__('auth.login.new')}}</span>
-                        <a href="{{url('auth/register-basic')}}">
+                        <a href="{{url('/register')}}">
                             <span>{{__('auth.login.createAccount')}}</span>
                         </a>
                     </p>

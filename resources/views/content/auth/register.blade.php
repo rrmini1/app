@@ -27,10 +27,11 @@
                         <h4 class="mb-1">{{__("auth.register.title")}} 🚀</h4>
                         <p class="mb-6">{{__('auth.register.subtitle')}}</p>
 
-                        <form id="formAuthentication" class="mb-6" action="{{url('/')}}" method="GET">
+                        <form id="formAuthentication" class="mb-6" action="{{url('/register')}}" method="POST">
+                            @csrf
                             <div class="mb-6">
-                                <label for="username" class="form-label">{{__('auth.register.name')}}</label>
-                                <input type="text" class="form-control" id="username" name="username" placeholder="{{__('auth.register.enterName')}}" autofocus>
+                                <label for="name" class="form-label">{{__('auth.register.name')}}</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="{{__('auth.register.enterName')}}" autofocus>
                             </div>
                             <div class="mb-6">
                                 <label for="email" class="form-label">{{__('auth.register.email')}}</label>

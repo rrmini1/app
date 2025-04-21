@@ -77,9 +77,11 @@
                 <span data-i18n="Pages">{{ __('navbar.pages') }}</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link fw-medium" href="#" target="_blank">{{ __('navbar.dashboard') }}</a>
-            </li>
+            @auth
+              <li class="nav-item">
+                  <a class="nav-link fw-medium" href="{{ route('dashboard') }}" target="_blank">{{ __('navbar.dashboard') }}</a>
+              </li>
+            @endauth
           </ul>
         </div>
         <div class="landing-menu-overlay d-lg-none"></div>
@@ -89,12 +91,26 @@
 
 
           <!-- navbar button: Start -->
+          @guest()
           <li>
             <a href="{{route('login')}}" class="btn btn-primary">
               <span class="tf-icons icon-base bx bx-log-in-circle scaleX-n1-rtl me-md-1"></span>
               <span class="d-none d-md-block">{{ __('navbar.login') }}</span>
             </a>
           </li>
+          @endguest
+
+          @auth()
+            <li>
+              <form method="post" action="{{ route('logout') }}">
+                @csrf
+                <button href="javascript:void(0);" class="btn btn-primary">
+                    <span class="tf-icons icon-base bx bx-log-out-circle scaleX-n1-rtl me-md-1"></span>
+                    <span class="d-none d-md-block">{{ __('navbar.logout') }}</span>
+                </button>
+              </form>
+            </li>
+          @endauth
           <!-- navbar button: End -->
         </ul>
         <!-- Toolbar: End -->

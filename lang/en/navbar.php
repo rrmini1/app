@@ -8,5 +8,6 @@ return [
   'contact' => 'Contact us',
   'pages' => 'Pages',
   'dashboard' => 'Dashboard',
-  'login' => 'Login/Register'
+  'login' => 'Login/Register',
+  'logout' => 'Logout',
 ];
