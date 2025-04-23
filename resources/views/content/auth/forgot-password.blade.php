@@ -24,17 +24,25 @@
                             </a>
                         </div>
                         <!-- /Logo -->
+
+                        @if (session('status'))
+                          <div class="mb-4 font-medium text-sm text-success">
+                            {{ session('status') }}
+                          </div>
+                        @endif
+
                         <h4 class="mb-1">{{__('auth.forgotPassword.title')}} 🔒</h4>
                         <p class="mb-6">{{__('auth.forgotPassword.subtitle')}}</p>
-                        <form id="formAuthentication" class="mb-6" action="{{url('/')}}" method="GET">
+                        <form id="formAuthentication" class="mb-6" action="{{route('password.email')}}" method="POST">
+                            @csrf
                             <div class="mb-6">
-                                <label for="email" class="form-label">{{__('auth.forgotPassword.email')}}</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="{{__('auth.forgotPassword.enterEmail')}}" autofocus>
+                                <label for="email" class="form-label">{{__('auth.email')}}</label>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="{{__('auth.enterEmail')}}" autofocus>
                             </div>
                             <button class="btn btn-primary d-grid w-100">{{__('auth.forgotPassword.send')}}</button>
                         </form>
                         <div class="text-center">
-                            <a href="{{url('auth/login-basic')}}" class="d-flex justify-content-center">
+                            <a href="{{route('login')}}" class="d-flex justify-content-center">
                                 <i class="bx bx-chevron-left scaleX-n1-rtl me-1"></i>
                               {{__('auth.forgotPassword.back')}}
                             </a>

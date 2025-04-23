@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
@@ -102,5 +106,62 @@ class AuthenticationTest extends TestCase
 
         $this->assertGuest();
         $response->assertRedirect('/');
+    }
+
+    public function test_forgot_password_screen_can_be_rendered(): void
+    {
+        $response = $this->get('/forgot-password');
+
+        $response->assertStatus(200);
+    }
+
+    public function test_user_can_request_password_reset_link()
+    {
+        Notification::fake();
+
+        $user = User::factory()->create();
+
+        $response = $this->post('/forgot-password', [
+            'email' => $user->email,
+        ]);
+
+        $response->assertSessionHasNoErrors();
+        Notification::assertSentTo($user, ResetPassword::class);
+    }
+
+    public function test_password_reset_page_can_be_rendered()
+    {
+        $response = $this->get('/reset-password/{token}');
+
+        $response->assertStatus(200);
+    }
+    public function test_password_can_be_reset_with_valid_token()
+    {
+        Notification::fake();
+        $user = User::factory()->create();
+
+        // Request password reset
+        $this->post('/forgot-password', ['email' => $user->email]);
+
+        // Get the notification
+        Notification::assertSentTo($user, ResetPassword::class, function ($notification) use ($user) {
+            // Generate reset URL
+            $url = URL::temporarySignedRoute(
+                'password.reset',
+                now()->addMinutes(60),
+                ['token' => $notification->token]
+            );
+
+            // Submit new password
+            $response = $this->post($url, [
+                'token' => $notification->token,
+                'email' => $user->email,
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password',
+            ]);
+
+            $response->assertSessionHasNoErrors();
+            return true;
+        });
     }
 }

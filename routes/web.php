@@ -13,3 +13,14 @@ Route::get('/dashboard', function () {
 Route::get('/login', function () {
   return view('content.auth.login');
 })->name('login');
+
+Route::get('/test-mail', function() {
+    try {
+        Mail::raw('Test email', function($message) {
+            $message->to('test@example.com')->subject('Test');
+        });
+        return 'Email sent successfully';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});

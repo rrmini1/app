@@ -13,7 +13,7 @@
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
             <div class="authentication-inner">
-                <!-- Register Card -->
+                <!-- Reset-password Card -->
                 <div class="card px-sm-6 px-0">
                     <div class="card-body">
                         <!-- Logo -->
@@ -24,16 +24,15 @@
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-1">Adventure starts here 🚀</h4>
-                        <p class="mb-6">Make your app management easy and fun!</p>
 
-                        <form id="formResetPassword" class="mb-6" action="{{url('/')}}" method="GET">
+                        <form id="formResetPassword" class="mb-6" action="{{route('password.update')}}" method="POST">
+                            @csrf
                             <div class="mb-6">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email">
+                                <label for="email" class="form-label">{{__('auth.email')}}</label>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="{{__('auth.enterEmail')}}">
                             </div>
                             <div class="mb-6 form-password-toggle">
-                                <label class="form-label" for="password">Password</label>
+                                <label class="form-label" for="password">{{__('auth.register.password')}}</label>
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
@@ -41,7 +40,7 @@
                             </div>
 
                             <div class="mb-6 form-password-toggle">
-                                <label class="form-label" for="password">Password confirmation</label>
+                                <label class="form-label" for="password">{{__('auth.register.confirm_password')}}</label>
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
@@ -54,20 +53,19 @@
                                        value="{{ request()->route('token') }}">
                             </div>
 
-                            <button class="btn btn-primary d-grid w-100">
-                                Reset password
+                            <button type="submit" class="btn btn-primary d-grid w-100">
+                                {{__('auth.resetPassword.resetPassword')}}
                             </button>
                         </form>
-
-                        <p class="text-center">
-                            <span>Already have an account?</span>
-                            <a href="{{url('auth/login-basic')}}">
-                                <span>Sign in instead</span>
+                        <div class="text-center">
+                            <a href="{{route('login')}}" class="d-flex justify-content-center">
+                                <i class="bx bx-chevron-left scaleX-n1-rtl me-1"></i>
+                                {{__('auth.forgotPassword.back')}}
                             </a>
-                        </p>
+                        </div>
                     </div>
                 </div>
-                <!-- Register Card -->
+                <!-- Reset-password Card -->
             </div>
         </div>
     </div>

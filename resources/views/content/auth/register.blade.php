@@ -34,8 +34,8 @@
                                 <input type="text" class="form-control" id="name" name="name" placeholder="{{__('auth.register.enterName')}}" autofocus>
                             </div>
                             <div class="mb-6">
-                                <label for="email" class="form-label">{{__('auth.register.email')}}</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="{{__('auth.register.enterEmail')}}">
+                                <label for="email" class="form-label">{{__('auth.email')}}</label>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="{{__('auth.enterEmail')}}">
                             </div>
                             <div class="mb-6 form-password-toggle">
                                 <label class="form-label" for="password">{{__('auth.register.password')}}</label>
@@ -69,7 +69,7 @@
 
                         <p class="text-center">
                             <span>{{__('auth.register.hasAccount')}}</span>
-                            <a href="{{url('auth/login-basic')}}">
+                            <a href="{{route('login')}}">
                                 <span>{{__('auth.register.signIn')}}</span>
                             </a>
                         </p>

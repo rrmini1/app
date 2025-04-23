@@ -29,8 +29,8 @@
                     <form id="formAuthentication" class="mb-6" action="{{ route('login' )}}" method="post">
                         @csrf
                         <div class="mb-6">
-                            <label for="email" class="form-label">{{ __('auth.login.email') }}</label>
-                            <input type="text" class="form-control" id="email" name="email" placeholder="{{ __('auth.login.enterEmail') }}" autofocus>
+                            <label for="email" class="form-label">{{ __('auth.email') }}</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="{{ __('auth.enterEmail') }}" autofocus>
                         </div>
                         <div class="mb-6 form-password-toggle">
                             <label class="form-label" for="password">{{ __('auth.login.password') }}</label>
@@ -47,7 +47,7 @@
                                       {{ __('auth.login.remember') }}
                                     </label>
                                 </div>
-                                <a href="{{url('auth/forgot-password-basic')}}">
+                                <a href="{{route('password.request')}}">
                                     <span>{{ __('auth.login.forgotPassword') }}</span>
                                 </a>
                             </div>

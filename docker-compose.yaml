@@ -1,9 +1,13 @@
 services:
   mailhog:
-    container_name: mail
-    image: 'mailhog/mailhog:latest'
+    container_name: mailhog
+    image: 'jcalonso/mailhog:latest'
     ports:
+      - '1025:1025'
       - '48001:8025'
+    restart: unless-stopped
+    networks:
+      - app-network
 
   redis:
     container_name: redis
@@ -63,9 +67,13 @@ services:
     working_dir: /application
     networks:
       - app-network
+    external_links:
+      - mailhog
     depends_on:
       - mysql
       - redis
+      - mailhog
+      - nginx
     volumes:
       - '.:/application'
       - './docker/php-fpm/php-ini-overrides.ini:/etc/php/8.4/fpm/conf.d/99-overrides.ini'
