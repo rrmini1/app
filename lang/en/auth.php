@@ -57,4 +57,11 @@ return [
     'subtitle' => '',
     'resetPassword' => 'Reset Password',
   ],
+
+  'verify' => [
+    'title' => 'Verify your email',
+    'subtitle' => 'Account activation link sent to your email address: :email. Please follow the link inside to continue.',
+    'question' => 'Didn`t get the mail?',
+    'resend' => 'Resend verification link',
+  ]
 ];

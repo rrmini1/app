@@ -79,7 +79,7 @@
             </li>
             @auth
               <li class="nav-item">
-                  <a class="nav-link fw-medium" href="{{ route('dashboard') }}" target="_blank">{{ __('navbar.dashboard') }}</a>
+                  <a class="nav-link fw-medium" href="{{ route('dashboard') }}" >{{ __('navbar.dashboard') }}</a>
               </li>
             @endauth
           </ul>

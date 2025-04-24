@@ -9,7 +9,7 @@ Route::get('/', function () {
 })->name('landing');
 
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('content/dashboard/dashboards-analytics');
     })->name('dashboard');
