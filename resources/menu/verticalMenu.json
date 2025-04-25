@@ -1,7 +1,7 @@
 {
   "menu": [
     {
-      "url": "/",
+      "url": "/dashboard",
       "name": "Dashboards",
       "icon": "menu-icon tf-icons bx bx-home-smile",
       "slug": "dashboard",
@@ -11,7 +11,7 @@
       ],
       "submenu": [
         {
-          "url": "/",
+          "url": "/dashboard",
           "name": "Analytics",
           "slug": "dashboard-analytics"
         },
@@ -19,17 +19,23 @@
           "url": "",
           "name": "CRM",
           "slug": "dashboard-crm",
-          "target": "_blank",
           "badge": [
             "label-primary fs-tiny",
             "Pro"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "url": "/users",
+      "name": "User Management",
+      "icon": "menu-icon tf-icons bx bx-user",
+      "slug": "laravel-example-user-management",
+      "submenu": [
         {
-          "url": "",
-          "name": "User Management",
-          "slug": "laravel-example-user-management",
-          "target": "_blank"
+          "url": "/clients",
+          "name": "Clients",
+          "slug": "laravel-example-user-management"
         }
       ]
     },
