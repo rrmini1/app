@@ -16,9 +16,10 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
         return view('content/dashboard/dashboards-analytics');
     })->name('dashboard');
 
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class); // all users
     Route::get('clients', [UserController::class, 'clients'])->name('clients');
 });
+
 
 //Route::get('/test-mail', function() {
 //    try {

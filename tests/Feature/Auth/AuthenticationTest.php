@@ -11,12 +11,18 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
+    protected  function setUp(): void
+    {
+        parent::setUp();
 
+        Role::create(['name' => 'client']);
+    }
     public function test_register_screen_can_be_rendered()
     {
         $response = $this->get('/register');
