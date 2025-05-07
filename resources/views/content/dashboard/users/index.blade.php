@@ -25,7 +25,7 @@
                     <a class="btn btn-success add-new" href="{{route('users.create')}}">
                         <span>
                             <i class="bx bx-plus bx-sm me-0 me-sm-2"></i>
-                            <span class="d-none d-sm-inline-block">Add new User</span>
+                            <span class="d-none d-sm-inline-block">{{__('user.add')}}</span>
                         </span>
                     </a>
                 </div>

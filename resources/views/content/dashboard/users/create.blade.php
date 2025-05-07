@@ -21,13 +21,13 @@
                         <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block w-px-100 h-px-100 rounded" id="uploadedAvatar" />
                         <div class="button-wrapper">
                             <label for="upload" class="btn btn-primary me-3 mb-4" tabindex="0">
-                                <span class="d-none d-sm-block">Upload new photo</span>
+                                <span class="d-none d-sm-block">{{__('user.upload')}}</span>
                                 <i class="bx bx-upload d-block d-sm-none"></i>
                                 <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
                             </label>
                             <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
                                 <i class="bx bx-reset d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Reset</span>
+                                <span class="d-none d-sm-block">{{__('user.reset')}}</span>
                             </button>
 
                             <div>Allowed JPG, GIF or PNG. Max size of 800K</div>
@@ -44,34 +44,34 @@
                         @csrf
                         <div class="row g-6">
                             <div class="col-md-6">
-                                <label for="firstName" class="form-label">First Name</label>
+                                <label for="firstName" class="form-label">{{__('user.name')}}</label>
                                 <input class="form-control" type="text" id="firstName" name="name" autofocus />
                             </div>
                             <div class="col-md-6">
-                                <label for="last_name" class="form-label">Last Name</label>
+                                <label for="last_name" class="form-label">{{__('user.lastname')}}</label>
                                 <input class="form-control" type="text" name="last_name" id="last_name"  />
                             </div>
                             <div class="col-md-6">
-                                <label for="email" class="form-label">E-mail</label>
+                                <label for="email" class="form-label">{{__('user.email')}}</label>
                                 <input class="form-control" type="text" id="email" name="email" placeholder="john.doe@example.com" />
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label" for="phoneNumber">Phone Number</label>
+                                <label class="form-label" for="phoneNumber">{{__('user.phone')}}</label>
                                 <div class="input-group input-group-merge">
                                     <input type="text" id="phoneNumber" name="phone" class="form-control" placeholder="+7 900 000 0111"/>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label" for="phoneNumber">Password</label>
+                                <label class="form-label" for="phoneNumber">{{__('auth.register.password')}}</label>
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password" name="password" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password"/>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label" for="phoneNumber">Confirm password</label>
+                                <label class="form-label" for="phoneNumber">{{__('auth.register.confirm_password')}}</label>
                                 <div class="input-group input-group-merge">
                                     <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password"/>
                                 </div>
@@ -97,8 +97,8 @@
                             </div>
                         </div>
                         <div class="mt-6">
-                            <button type="submit" class="btn btn-primary me-3">Save changes</button>
-                            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                            <button type="submit" class="btn btn-primary me-3">{{__('user.save')}}</button>
+                            <button type="reset" class="btn btn-outline-secondary">{{__('user.cancel')}}</button>
                         </div>
                     </form>
                 </div>
