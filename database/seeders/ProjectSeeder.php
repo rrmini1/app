@@ -1,23 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Database\Seeders;
 
+use App\Models\Project;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-final class DatabaseSeeder extends Seeder
+class ProjectSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $this->call([
-            UsersWithRoleSeeder::class,
-            ProjectSeeder::class,
-        ]);
+        Project::factory()->count(15)->create();
     }
 }

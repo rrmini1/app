@@ -20,6 +20,7 @@ final class UsersWithRoleSeeder extends Seeder
     {
         $roleAdmin = Role::create(['name' => 'admin']);
 
+        Role::create(['name' => 'developer']);
         Role::create(['name' => 'client']);
 
         $user = User::factory()->create([
@@ -29,6 +30,13 @@ final class UsersWithRoleSeeder extends Seeder
         ]);
 
         $user->assignRole($roleAdmin);
+
+        User::factory()
+            ->count(3)
+            ->create()
+            ->each(function ($user) {
+                $user->assignRole('developer');
+            });
 
         User::factory()
             ->count(10)
