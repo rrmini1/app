@@ -19,7 +19,7 @@
         <div class="card-datatable table-responsive ">
             <div class="card-header flex-column flex-md-row pb-0">
                 <div class="head-label text-center">
-                    <h5 class="card-title">{{ __('user.clients')}}</h5>
+                    <h5 class="card-title">{!!   __('user.'. $users[0]->getRoleNames()[0])  !!}</h5>
                 </div>
                 <div class="dt-action-buttons text-end mb-5">
                     <a class="btn btn-success add-new" href="{{route('users.create')}}">

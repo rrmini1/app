@@ -14,4 +14,7 @@ return [
     'reset' => 'Reset',
     'save' => 'Save changes',
     'cancel' => 'Cancel',
+    'developer' => 'Developers',
+    'admin' => 'All Users',
+    'client' => 'Clients',
 ];

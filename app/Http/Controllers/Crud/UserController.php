@@ -19,16 +19,21 @@ final class  UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
+        $roles = $request->input('role', []);
+        if (!is_array($roles)) {
+            $roles = explode(',', $roles);
+        }
+
         return view('content/dashboard/users/index',
-            ['users' => $this->userRepository->list()]);
+            ['users' => $this->userRepository->usersByRoleList($roles)]);
     }
 
-    public function clients(): View
+    public function usersByRole(Request $request): View
     {
         return view('content/dashboard/users/index',
-            ['users' => $this->userRepository->usersByRoleList('client')]);
+            ['users' => $this->userRepository->usersByRoleList($request->path())]);
     }
 
     /**
@@ -76,7 +81,7 @@ final class  UserController extends Controller
         $user = $this->userRepository->update($user, $request->validated());
         if ($user) {
             return redirect()
-                ->route('clients')
+                ->route('dashboard')
                 ->with('success', __('Пользователь успешно обновлен'));
         }
         return back()->with('success', __('Не удалось обновить пользователя'));
@@ -89,7 +94,7 @@ final class  UserController extends Controller
     {
         if ($this->userRepository->delete($user)) {
             return redirect()
-                ->route('clients')
+                ->route('dashboard')
                 ->with('success', __('Пользователь безвозвратно удален'));
         }
         return back()->with('success', __('Что-то не удаляется пользователь :('));

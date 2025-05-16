@@ -2,7 +2,7 @@
   "menu": [
     {
       "url": "/dashboard",
-      "name": "Dashboards",
+      "name": "dashboards",
       "icon": "menu-icon tf-icons bx bx-home-smile",
       "slug": "dashboard",
       "badge": [
@@ -12,7 +12,7 @@
       "submenu": [
         {
           "url": "/dashboard",
-          "name": "Analytics",
+          "name": "analytics",
           "slug": "dashboard-analytics"
         },
         {
@@ -33,11 +33,29 @@
       "slug": "laravel-example-user-management",
       "submenu": [
         {
-          "url": "/clients",
+          "url": "/users",
+          "name": "All Users",
+          "slug": "laravel-example-user-management",
+          "role": "all role"
+        },
+        {
+          "url": "/users?role[]=client",
           "name": "Clients",
+          "slug": "clients",
+          "role": "client"
+        },
+        {
+          "url": "/users?role[]=developer",
+          "name": "Developers",
           "slug": "laravel-example-user-management"
         }
       ]
+    },
+    {
+      "url": "/projects",
+      "name": "projects",
+      "icon": "menu-icon tf-icons bx bx-paper-plane",
+      "slug": "laravel-example-user-management"
     },
     {
       "menuHeader": "Apps & Pages"

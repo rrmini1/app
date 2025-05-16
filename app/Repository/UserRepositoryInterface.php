@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface UserRepositoryInterface
 {
-    public function usersByRoleList(string $role): Collection;
+    public function usersByRoleList(string|array $role): Collection;
 }

@@ -42,8 +42,8 @@ class UserControllerTest extends TestCase
             ->each(function ($user) {
                 $user->assignRole('client');
             });
-        // get-запрос по маршруту /clients
-        $response = $this->get(route('clients'));
+        // get-запрос по маршруту /users
+        $response = $this->get('users');
         $response->assertStatus(200);
 
         // проверяем, что все клиенты отображаются и в список не попали админы
@@ -79,7 +79,7 @@ class UserControllerTest extends TestCase
 
         $response = $this->put(route('users.update', $user), $updateData);
         $response->assertStatus(302);
-        $response->assertRedirect(route('clients'));
+        $response->assertRedirect(route('dashboard'));
         $this->assertDatabaseHas('users', $updateData);
     }
 
@@ -126,7 +126,7 @@ class UserControllerTest extends TestCase
 
         $response = $this->delete(route('users.destroy', $user->id));
         $response->assertStatus(302);
-        $response->assertRedirect(route('clients'));
+        $response->assertRedirect(route('dashboard'));
         $this->assertDatabaseMissing('users', ['id' => $user->id]);
 
     }
