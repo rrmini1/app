@@ -40,13 +40,13 @@
         },
         {
           "url": "/users?role[]=client",
-          "name": "Clients",
+          "name": "clients",
           "slug": "clients",
           "role": "client"
         },
         {
           "url": "/users?role[]=developer",
-          "name": "Developers",
+          "name": "developers",
           "slug": "laravel-example-user-management"
         }
       ]
@@ -73,7 +73,7 @@
     },
     {
       "url": "",
-      "name": "Chat",
+      "name": "chat",
       "icon": "menu-icon tf-icons bx bx-chat",
       "slug": "app-chat",
       "target": "_blank",

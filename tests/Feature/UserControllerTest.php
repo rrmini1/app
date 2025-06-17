@@ -43,7 +43,7 @@ class UserControllerTest extends TestCase
                 $user->assignRole('client');
             });
         // get-запрос по маршруту /users
-        $response = $this->get('users');
+        $response = $this->get('/users?role[]=client');
         $response->assertStatus(200);
 
         // проверяем, что все клиенты отображаются и в список не попали админы
