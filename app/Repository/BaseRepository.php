@@ -37,4 +37,10 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $model->delete();
     }
+
+    public function saveImage(Model $model, string $linkToImage): bool
+    {
+        $model->image = $linkToImage;
+        return $model->save();
+    }
 }

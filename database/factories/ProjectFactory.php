@@ -23,7 +23,7 @@ final class ProjectFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-            'image' => $this->faker->imageUrl(),
+//            'image' => $this->faker->imageUrl(),
             'description' => $this->faker->paragraph,
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
@@ -45,7 +45,6 @@ final class ProjectFactory extends Factory
                 $this->faker->randomElement($developerIds), // Случайный разработчик
                 $this->faker->randomElement($clientIds)     // Случайный клиент
             ]);
-//dd($project->users()->role('client')->get()->pluck('id')->toArray()[0]);
 
             $clientIds = array_diff($clientIds, $project->users()->role('client')->get()->pluck('id')->toArray());
             $developerIds = array_diff($developerIds, $project->users()->role('developer')->get()->pluck('id')->toArray());

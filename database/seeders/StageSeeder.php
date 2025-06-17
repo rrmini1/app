@@ -1,24 +1,18 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Database\Seeders;
 
+use App\Models\Stage;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-final class DatabaseSeeder extends Seeder
+class StageSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $this->call([
-            UsersWithRoleSeeder::class,
-            ProjectSeeder::class,
-            StageSeeder::class,
-        ]);
+        Stage::factory(10)->create();
     }
 }

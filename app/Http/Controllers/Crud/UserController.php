@@ -21,6 +21,7 @@ final class  UserController extends Controller
      */
     public function index(Request $request): View
     {
+//        dd($request->input());
         $roles = $request->input('role', []);
         if (!is_array($roles)) {
             $roles = explode(',', $roles);
@@ -53,7 +54,7 @@ final class  UserController extends Controller
         $user->assignRole('client');
 
         return redirect()
-            ->route('clients')
+            ->route('users.index',['role'=> 'client'])
             ->with('success', __('Пользователь успешно создан'));
     }
 
