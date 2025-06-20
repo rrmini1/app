@@ -77,8 +77,8 @@
             items.forEach(function (item) {
                 item.addEventListener('click', function () {
                     const id = this.getAttribute('rel');
-                    if (confirm("Вы уверены что хотите удалить пользователя с #ID = " + id)) {
-                        fetch(`/users/${id}`, {
+                    if (confirm("Вы уверены что хотите удалить проект с #ID = " + id)) {
+                        fetch(`/projects/${id}`, {
                             method: "DELETE",
                             headers: {
                                 "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute('content')

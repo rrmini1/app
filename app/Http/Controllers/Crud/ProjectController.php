@@ -9,7 +9,6 @@ use App\Http\Requests\Project\CreateRequest;
 use App\Http\Requests\Project\UpdateRequest;
 use App\Models\Project;
 use App\Repository\ProjectRepositoryInterface;
-//use App\Repository\UserRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
 use App\Services\FileUpload;
 use Illuminate\Http\RedirectResponse;
@@ -19,16 +18,16 @@ use Illuminate\View\View;
 final class ProjectController extends Controller
 {
     public function __construct(
-        private FileUpload $fileUpload,
+        private readonly FileUpload                 $fileUpload,
         private readonly ProjectRepositoryInterface $projectRepository,
-        private readonly UserRepositoryInterface $userRepository)
+        private readonly UserRepositoryInterface    $userRepository)
     {
 
     }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         return view('content.dashboard.projects.index', [
             'projects' => $this->projectRepository->list()
@@ -132,8 +131,12 @@ final class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project): RedirectResponse
     {
-        //
+        if($this->projectRepository->delete($project))
+        {
+            return redirect()->route('projects.index')->with('success', __('Проект удален'));
+        }
+        return back()->with('error', __('Что-то не удаляется проект :('));
     }
 }
