@@ -62,7 +62,6 @@ final class ProjectController extends Controller
             }
         }
         return redirect()
-            ->route('projects.edit', $project)
             ->with('success', __('Проект успешно создан'));
     }
 
