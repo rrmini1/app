@@ -9,6 +9,7 @@ use App\Http\Requests\Stage\CreateRequest;
 use App\Http\Requests\Stage\UpdateRequest;
 use App\Models\Stage;
 use App\Repository\StageRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -78,8 +79,13 @@ final class StageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Stage $stage): JsonResponse
     {
-        //
+        try {
+            $this->stageRepository->delete($stage);
+            return response()->json('ok');
+        } catch (\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()], 500);
+        }
     }
 }

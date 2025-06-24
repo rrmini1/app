@@ -80,8 +80,8 @@
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                                     <div class="dropdown-menu">
                                         <a type="button" class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModalEdit"><i class="bx bx-edit-alt me-1"></i>{{__('user.edit')}}</a>
-                                        <a type="button" class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModalEdit"><i class="bx bx-edit-alt me-1"></i>{{__('Выписать счет')}}</a>
-                                        <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i>{{__('user.delete')}}</a>
+                                        <a type="button" class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basic"><i class="bx bx-edit-alt me-1"></i>{{__('Выписать счет')}}</a>
+                                        <a class="dropdown-item delete" href="javascript:void(0);" tabindex="{{$index}}" rel="{{ $stage->id }}"><i class="bx bx-trash me-1"></i>{{__('user.delete')}}</a>
                                     </div>
                                 </div>
                             </td>
@@ -94,4 +94,27 @@
         </div>
         <!-- end Stages -->
     </div>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const items = document.querySelectorAll('.delete');
+            items.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    const id = Number(this.getAttribute('rel'));
+                    const index = Number(this.getAttribute('tabindex'))+1;
+                    if (confirm("Вы уверены что хотите удалить из проекта этап " + index)) {
+                        fetch(`/stages/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute('content')
+                            }
+                        }).then(response => {
+                            location.reload();
+                        });
+                    } else {
+                        alert('Удаление отменено');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
