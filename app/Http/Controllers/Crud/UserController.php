@@ -21,7 +21,6 @@ final class  UserController extends Controller
      */
     public function index(Request $request): View
     {
-//        dd($request->input());
         $roles = $request->input('role', []);
         if (!is_array($roles)) {
             $roles = explode(',', $roles);
@@ -29,12 +28,6 @@ final class  UserController extends Controller
 
         return view('content/dashboard/users/index',
             ['users' => $this->userRepository->usersByRoleList($roles)]);
-    }
-
-    public function usersByRole(Request $request): View
-    {
-        return view('content/dashboard/users/index',
-            ['users' => $this->userRepository->usersByRoleList($request->path())]);
     }
 
     /**

@@ -5,10 +5,18 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Crud;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Stage\CreateRequest;
+use App\Http\Requests\Stage\UpdateRequest;
+use App\Models\Stage;
+use App\Repository\StageRepositoryInterface;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 final class StageController extends Controller
 {
+    public function __construct(
+        private readonly StageRepositoryInterface $stageRepository,
+    ){}
     /**
      * Display a listing of the resource.
      */
@@ -28,9 +36,12 @@ final class StageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request): RedirectResponse
     {
-        //
+//        dd($request->validated());
+        $stage = $this->stageRepository->create($request->validated());
+
+        return redirect()->route('projects.show',['project' => $stage->project_id]);
     }
 
     /**
@@ -52,9 +63,16 @@ final class StageController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Stage $stage): RedirectResponse
     {
-        //
+        $stage->update([
+            'pay_status' => $request->has('pay_status'),
+        ]);
+        if ($this->stageRepository->update($stage, $request->validated())) {
+            return redirect()
+                ->route('projects.show', ['project' => $stage->project_id]);
+        }
+        return back()->with('error', 'Не удалось обновить этап проекта');
     }
 
     /**

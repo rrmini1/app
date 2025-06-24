@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Crud\ProjectController;
+use App\Http\Controllers\Crud\StageController;
 use App\Http\Controllers\Crud\UserController;
 //use Illuminate\Support\Facades\Mail;
 //use Illuminate\Http\Request;
@@ -24,6 +25,8 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
 
     Route::post('/projects/{project}/users', [ProjectController::class, 'addUserToProject'])
         ->name('projects.users.store');
+
+    Route::resource('stages', StageController::class);
 });
 
 

@@ -12,6 +12,7 @@ final class Stage extends Model
     use HasFactory;
 
     protected $fillable = [
+        'project_id',
         'name',
         'content',
         'start',

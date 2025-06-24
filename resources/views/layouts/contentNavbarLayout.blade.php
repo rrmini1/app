@@ -45,6 +45,14 @@ $container = ($container ?? 'container-xxl');
           <div class="{{$container}} flex-grow-1 container-p-y">
             @endif
 
+              @if($errors->any())
+                  @foreach ($errors->all() as $error)
+                      <div class="alert alert-danger alert-dismissible" role="alert">
+                          {{ $error }}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                  @endforeach
+              @endif
             @yield('content')
 
           </div>
