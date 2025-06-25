@@ -140,7 +140,14 @@
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                                <a
+                                    class="dropdown-item delete"
+                                    href="javascript:void(0);"
+                                    rel="{{ $user->id }}"
+                                    data-project="{{$project->id}}"
+                                    data-userName="{{ $user->name }}">
+                                    <i class="bx bx-trash me-1"></i> Delete
+                                </a>
                             </div>
                         </div>
                     </td>
@@ -222,7 +229,14 @@
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                                    <a
+                                        class="dropdown-item delete"
+                                        rel="{{ $user->id }}"
+                                        data-project="{{$project->id}}"
+                                        data-userName="{{ $user->name }}"
+                                        href="javascript:void(0);">
+                                        <i class="bx bx-trash me-1"></i> Delete
+                                    </a>
                                 </div>
                             </div>
                         </td>
@@ -234,8 +248,28 @@
         </div>
     </div>
     <!-- end Clients -->
-
-
-
-
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const items = document.querySelectorAll('.delete');
+            items.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    const userName = this.getAttribute('data-userName');
+                    const project_id = this.getAttribute('data-project');
+                    const id = this.getAttribute('rel');
+                    if (confirm("Вы уверены что хотите удалить из проекта пользователя : " + userName)) {
+                        fetch(`/projects/${project_id}/users/${id}`, {
+                            method: "DELETE",
+                            headers: {
+                                "X-CSRF-TOKEN": document.querySelector("meta[name='csrf-token']").getAttribute('content')
+                            }
+                        }).then(response => {
+                            location.reload();
+                        });
+                    } else {
+                        alert('Удаление отменено');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

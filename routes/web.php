@@ -26,6 +26,9 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
     Route::post('/projects/{project}/users', [ProjectController::class, 'addUserToProject'])
         ->name('projects.users.store');
 
+    Route::delete('/projects/{project}/users/{user}', [ProjectController::class, 'removeUserFromProject'])
+        ->name('projects.users.destroy');
+
     Route::resource('stages', StageController::class);
 });
 

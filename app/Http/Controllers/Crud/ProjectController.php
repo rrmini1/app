@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\CreateRequest;
 use App\Http\Requests\Project\UpdateRequest;
 use App\Models\Project;
+use App\Models\User;
 use App\Repository\ProjectRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
 use App\Services\FileUpload;
@@ -111,6 +112,18 @@ final class ProjectController extends Controller
         return back()->with('error', __('Не удалось обновить проект'));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Project $project): RedirectResponse
+    {
+        if($this->projectRepository->delete($project))
+        {
+            return redirect()->route('projects.index')->with('success', __('Проект удален'));
+        }
+        return back()->with('error', __('Что-то не удаляется проект :('));
+    }
+
     public function addUserToProject(Request $request, Project $project): RedirectResponse
     {
         $request->validate([
@@ -128,15 +141,18 @@ final class ProjectController extends Controller
         return redirect()->back()->with('error', 'User already in project!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Project $project): RedirectResponse
+    public function removeUserFromProject( Project $project, User $user): RedirectResponse
     {
-        if($this->projectRepository->delete($project))
-        {
-            return redirect()->route('projects.index')->with('success', __('Проект удален'));
+        // Проверяем, что пользователь есть в проекте
+        if ($project->users()->where('user_id', $user->id)->exists()) {
+            // Удаляем связь
+            $project->users()->detach($user->id);
+
+            return redirect()->back()
+                ->with('success', 'Пользователь успешно удалён из проекта');
         }
-        return back()->with('error', __('Что-то не удаляется проект :('));
+
+        return redirect()->back()
+            ->with('error', 'Пользователь не найден в проекте');
     }
 }
