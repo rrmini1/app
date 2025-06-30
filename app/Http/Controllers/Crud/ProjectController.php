@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Crud;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\CreateRequest;
 use App\Http\Requests\Project\UpdateRequest;
+use App\Mail\AddUserToProjectMail;
 use App\Models\Project;
 use App\Models\User;
 use App\Repository\ProjectRepositoryInterface;
@@ -14,6 +15,8 @@ use App\Repository\UserRepositoryInterface;
 use App\Services\FileUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 final class ProjectController extends Controller
@@ -130,11 +133,19 @@ final class ProjectController extends Controller
             'user_id' => 'required|integer|exists:users,id'
         ]);
 
-        $userId = $request->input('user_id');
+//        $userId = $request->input('user_id');
+        $user = User::findOrFail($request->user_id);
 
         // Проверяем, не добавлен ли уже пользователь
-        if (!$project->users()->where('user_id', $userId)->exists()) {
-            $project->users()->attach($userId);
+        if (!$project->users()->where('user_id', $user->id)->exists()) {
+            $project->users()->attach($user->id);
+            // send mail
+            try {
+                Mail::to($user)->send(new AddUserToProjectMail($project, $user));
+            } catch (\Exception $e) {
+                Log::error('Ошибка отправки письма'. $e->getMessage());
+            }
+
             return redirect()->back()->with('success', 'User added!');
         }
 
