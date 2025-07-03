@@ -13,10 +13,12 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-final class AddUserToProjectMail extends Mailable
+final class AddUserToProjectMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
+    public int $tries = 3;
+    public array $backoff = [60, 180, 300];
     /**
      * Create a new message instance.
      */

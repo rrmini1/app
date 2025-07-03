@@ -132,8 +132,6 @@ final class ProjectController extends Controller
         $request->validate([
             'user_id' => 'required|integer|exists:users,id'
         ]);
-
-//        $userId = $request->input('user_id');
         $user = User::findOrFail($request->user_id);
 
         // Проверяем, не добавлен ли уже пользователь
@@ -141,9 +139,9 @@ final class ProjectController extends Controller
             $project->users()->attach($user->id);
             // send mail
             try {
-                Mail::to($user)->send(new AddUserToProjectMail($project, $user));
+                Mail::to($user)->queue(new AddUserToProjectMail($project, $user));
             } catch (\Exception $e) {
-                Log::error('Ошибка отправки письма'. $e->getMessage());
+                Log::error('Ошибка при постановке письма в очередь: '. $e->getMessage());
             }
 
             return redirect()->back()->with('success', 'User added!');
