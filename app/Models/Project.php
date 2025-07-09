@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 final class Project extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'description',

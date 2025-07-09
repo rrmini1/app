@@ -5,14 +5,13 @@ declare(strict_types=1);
 use App\Http\Controllers\Crud\ProjectController;
 use App\Http\Controllers\Crud\StageController;
 use App\Http\Controllers\Crud\UserController;
-//use Illuminate\Support\Facades\Mail;
-//use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Mail;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('/content/landing');
 })->name('landing');
-
 
 Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
@@ -32,8 +31,7 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
     Route::resource('stages', StageController::class);
 });
 
-
-//Route::get('/test-mail', function() {
+// Route::get('/test-mail', function() {
 //    try {
 //        Mail::raw('Test email', function($message) {
 //            $message->to('test@example.com')->subject('Test');
@@ -42,4 +40,4 @@ Route::middleware(['auth', 'role:admin', 'verified'])->group(function () {
 //    } catch (\Exception $e) {
 //        return 'Error: ' . $e->getMessage();
 //    }
-//});
+// });

@@ -13,16 +13,17 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-final class  UserController extends Controller
+final class UserController extends Controller
 {
     public function __construct(private UserRepositoryInterface $userRepository) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request): View
     {
         $roles = $request->input('role', []);
-        if (!is_array($roles)) {
+        if (! is_array($roles)) {
             $roles = explode(',', $roles);
         }
 
@@ -35,7 +36,7 @@ final class  UserController extends Controller
      */
     public function create(): View
     {
-        return view('content/dashboard/users/create',);
+        return view('content/dashboard/users/create');
     }
 
     /**
@@ -47,7 +48,7 @@ final class  UserController extends Controller
         $user->assignRole('client');
 
         return redirect()
-            ->route('users.index',['role'=> 'client'])
+            ->route('users.index', ['role' => 'client'])
             ->with('success', __('Пользователь успешно создан'));
     }
 
@@ -78,6 +79,7 @@ final class  UserController extends Controller
                 ->route('dashboard')
                 ->with('success', __('Пользователь успешно обновлен'));
         }
+
         return back()->with('success', __('Не удалось обновить пользователя'));
     }
 
@@ -91,6 +93,7 @@ final class  UserController extends Controller
                 ->route('dashboard')
                 ->with('success', __('Пользователь безвозвратно удален'));
         }
+
         return back()->with('success', __('Что-то не удаляется пользователь :('));
     }
 }

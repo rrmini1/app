@@ -25,10 +25,10 @@ final class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'       => 'required|string|between:2,255',
-            'last_name'  => 'required|string|between:2,255',
-            'email'      => 'required|string|email|max:50|'. Rule::unique('users')->ignore($this->user),
-            'phone'      => 'required|string|between:10,15',
+            'name' => 'required|string|between:2,255',
+            'last_name' => 'required|string|between:2,255',
+            'email' => 'required|string|email|max:50|'.Rule::unique('users')->ignore($this->user),
+            'phone' => 'required|string|between:10,15',
         ];
     }
 }

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 final class ProjectFactory extends Factory
 {
     protected $model = Project::class;
+
     /**
      * Define the model's default state.
      *
@@ -23,7 +24,7 @@ final class ProjectFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-//            'image' => $this->faker->imageUrl(),
+            //            'image' => $this->faker->imageUrl(),
             'description' => $this->faker->paragraph,
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
@@ -43,7 +44,7 @@ final class ProjectFactory extends Factory
             // Привязываем обязательных участников
             $project->users()->attach([
                 $this->faker->randomElement($developerIds), // Случайный разработчик
-                $this->faker->randomElement($clientIds)     // Случайный клиент
+                $this->faker->randomElement($clientIds),     // Случайный клиент
             ]);
 
             $clientIds = array_diff($clientIds, $project->users()->role('client')->get()->pluck('id')->toArray());

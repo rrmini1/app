@@ -25,11 +25,11 @@ final class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'       => 'required|string|between:2,255',
-            'last_name'  => 'required|string|between:2,255',
-            'email'      => 'required|string|email|max:50|'. Rule::unique('users')->ignore($this->user),
-            'phone'      => 'required|string|between:10,15',
-            'password'   => 'required|string|min:8|confirmed',
+            'name' => 'required|string|between:2,255',
+            'last_name' => 'required|string|between:2,255',
+            'email' => 'required|string|email|max:50|'.Rule::unique('users')->ignore($this->user),
+            'phone' => 'required|string|between:10,15',
+            'password' => 'required|string|min:8|confirmed',
         ];
     }
 }

@@ -13,7 +13,9 @@ use Illuminate\View\Component;
 final class StageDialog extends Component
 {
     public Project $project;
+
     public Stage $stage;
+
     /**
      * Create a new component instance.
      */
