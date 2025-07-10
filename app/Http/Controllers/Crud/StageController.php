@@ -39,7 +39,6 @@ final class StageController extends Controller
      */
     public function store(CreateRequest $request): RedirectResponse
     {
-        //        dd($request->validated());
         $stage = $this->stageRepository->create($request->validated());
 
         return redirect()->route('projects.show', ['project' => $stage->project_id]);

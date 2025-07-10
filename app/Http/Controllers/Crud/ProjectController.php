@@ -65,6 +65,7 @@ final class ProjectController extends Controller
         }
 
         return redirect()
+            ->route('projects.index')
             ->with('success', __('Проект успешно создан'));
     }
 
