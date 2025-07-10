@@ -15,17 +15,18 @@ final class FileUpload
      */
     public function upload(UploadedFile $file, Model $model): string
     {
-        if ($model->image) {
+        if ($model->image) { // @phpstan-ignore-line
             if (Storage::disk('public')->exists($model->image)) {
                 Storage::disk('public')->delete($model->image);
             }
         }
-        $fileName = "id-". $model->id. "-".$file->getClientOriginalName();
-        $link = $file->storeAs( $model->getTable(), $fileName, 'public');
+        $fileName = 'id-'.$model->id.'-'.$file->getClientOriginalName(); // @phpstan-ignore-line
+        $link = $file->storeAs($model->getTable(), $fileName, 'public');
 
         if (! $link) {
             throw new \Exception('Could not store project image');
         }
+
         return $link;
     }
 }

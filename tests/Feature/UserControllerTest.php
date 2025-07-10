@@ -6,7 +6,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-//use Illuminate\Foundation\Testing\WithFaker;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
@@ -14,9 +13,9 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $admin;
+    protected User $admin;
 
-    protected  function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -26,7 +25,7 @@ class UserControllerTest extends TestCase
         $this->admin = User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@app.com',
-            'password' => bcrypt( 'password'),
+            'password' => bcrypt('password'),
         ]);
         $this->admin->assignRole($roleAdmin);
 
@@ -70,9 +69,9 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
 
         $updateData = [
-            'name'       => 'Updated Name',
-            'last_name'  => 'Updated Last Name',
-            'email' =>  'updated@email.com',
+            'name' => 'Updated Name',
+            'last_name' => 'Updated Last Name',
+            'email' => 'updated@email.com',
             'phone' => '192371923719',
 
         ];
@@ -88,9 +87,9 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->put(route('users.update', $user), [
-            'name'       => '',
-            'last_name'  => '',
-            'email' =>  '',
+            'name' => '',
+            'last_name' => '',
+            'email' => '',
             'phone' => '12345',
         ]);
 

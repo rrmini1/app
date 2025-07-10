@@ -7,7 +7,6 @@ namespace Tests\Feature\Auth;
 use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
@@ -17,12 +16,14 @@ use Tests\TestCase;
 class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
-    protected  function setUp(): void
+
+    protected function setUp(): void
     {
         parent::setUp();
 
         Role::create(['name' => 'client']);
     }
+
     public function test_register_screen_can_be_rendered()
     {
         $response = $this->get('/register');
@@ -45,15 +46,15 @@ class AuthenticationTest extends TestCase
 
     public function test_registration_requires_valid_email()
     {
-      $response = $this->post('/register', [
-          'name' => 'Test User',
-          'email' => 'not-an-email',
-          'password' => 'password',
-          'password_confirmation' => 'password',
-      ]);
+        $response = $this->post('/register', [
+            'name' => 'Test User',
+            'email' => 'not-an-email',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
 
-      $response->assertSessionHasErrors('email');
-      $this->assertGuest();
+        $response->assertSessionHasErrors('email');
+        $this->assertGuest();
     }
 
     public function test_passwords_must_match()
@@ -79,7 +80,7 @@ class AuthenticationTest extends TestCase
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
         $user = User::factory()->create([
-            'password' => bcrypt( 'password'),
+            'password' => bcrypt('password'),
         ]);
 
         $response = $this->post('/login', [
@@ -141,6 +142,7 @@ class AuthenticationTest extends TestCase
 
         $response->assertStatus(200);
     }
+
     public function test_password_can_be_reset_with_valid_token()
     {
         Notification::fake();
@@ -167,11 +169,11 @@ class AuthenticationTest extends TestCase
             ]);
 
             $response->assertSessionHasNoErrors();
-// этот тест не проходит, хотя все работает, пароль меняется. ???
-//            $this->assertTrue(
-//                Hash::check('new-password', $user->password),
-//                'The password was not updated in the database'
-//            );
+            // этот тест не проходит, хотя все работает, пароль меняется. ???
+            //            $this->assertTrue(
+            //                Hash::check('new-password', $user->password),
+            //                'The password was not updated in the database'
+            //            );
 
             return true;
         });

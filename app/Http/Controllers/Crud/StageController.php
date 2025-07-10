@@ -11,13 +11,13 @@ use App\Models\Stage;
 use App\Repository\StageRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 final class StageController extends Controller
 {
     public function __construct(
         private readonly StageRepositoryInterface $stageRepository,
-    ){}
+    ) {}
+
     /**
      * Display a listing of the resource.
      */
@@ -39,10 +39,9 @@ final class StageController extends Controller
      */
     public function store(CreateRequest $request): RedirectResponse
     {
-//        dd($request->validated());
         $stage = $this->stageRepository->create($request->validated());
 
-        return redirect()->route('projects.show',['project' => $stage->project_id]);
+        return redirect()->route('projects.show', ['project' => $stage->project_id]);
     }
 
     /**
@@ -73,6 +72,7 @@ final class StageController extends Controller
             return redirect()
                 ->route('projects.show', ['project' => $stage->project_id]);
         }
+
         return back()->with('error', 'Не удалось обновить этап проекта');
     }
 
@@ -83,6 +83,7 @@ final class StageController extends Controller
     {
         try {
             $this->stageRepository->delete($stage);
+
             return response()->json('ok');
         } catch (\Exception $exception) {
             return response()->json(['error' => $exception->getMessage()], 500);

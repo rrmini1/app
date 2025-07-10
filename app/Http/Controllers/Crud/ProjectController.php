@@ -22,19 +22,17 @@ use Illuminate\View\View;
 final class ProjectController extends Controller
 {
     public function __construct(
-        private readonly FileUpload                 $fileUpload,
+        private readonly FileUpload $fileUpload,
         private readonly ProjectRepositoryInterface $projectRepository,
-        private readonly UserRepositoryInterface    $userRepository)
-    {
+        private readonly UserRepositoryInterface $userRepository) {}
 
-    }
     /**
      * Display a listing of the resource.
      */
     public function index(): View
     {
         return view('content.dashboard.projects.index', [
-            'projects' => $this->projectRepository->list()
+            'projects' => $this->projectRepository->list(),
         ]);
     }
 
@@ -45,12 +43,13 @@ final class ProjectController extends Controller
     {
         return view('content.dashboard.projects.create', [
             'developers' => $this->userRepository->usersByRoleList('developer'),
-            'clients' => $this->userRepository->usersByRoleList('client')
+            'clients' => $this->userRepository->usersByRoleList('client'),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
+     *
      * @throws \Exception
      */
     public function store(CreateRequest $request): RedirectResponse
@@ -64,7 +63,9 @@ final class ProjectController extends Controller
                 $this->projectRepository->saveImage($project, $link);
             }
         }
+
         return redirect()
+            ->route('projects.index')
             ->with('success', __('Проект успешно создан'));
     }
 
@@ -74,7 +75,7 @@ final class ProjectController extends Controller
     public function show(Project $project): View
     {
         return view('content.dashboard.projects.show', [
-            'project' => $project
+            'project' => $project,
         ]);
     }
 
@@ -86,12 +87,13 @@ final class ProjectController extends Controller
         return view('content.dashboard.projects.edit', [
             'project' => $project,
             'developers' => $this->userRepository->usersByRoleList('developer'),
-            'clients' => $this->userRepository->usersByRoleList('client')
+            'clients' => $this->userRepository->usersByRoleList('client'),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
+     *
      * @throws \Exception
      */
     public function update(UpdateRequest $request, Project $project): RedirectResponse
@@ -108,10 +110,12 @@ final class ProjectController extends Controller
                     $this->projectRepository->saveImage($project, $link);
                 }
             }
+
             return redirect()
                 ->route('projects.show', $project)
                 ->with('success', __('Проект успешно обновлен'));
         }
+
         return back()->with('error', __('Не удалось обновить проект'));
     }
 
@@ -120,28 +124,28 @@ final class ProjectController extends Controller
      */
     public function destroy(Project $project): RedirectResponse
     {
-        if($this->projectRepository->delete($project))
-        {
+        if ($this->projectRepository->delete($project)) {
             return redirect()->route('projects.index')->with('success', __('Проект удален'));
         }
+
         return back()->with('error', __('Что-то не удаляется проект :('));
     }
 
     public function addUserToProject(Request $request, Project $project): RedirectResponse
     {
         $request->validate([
-            'user_id' => 'required|integer|exists:users,id'
+            'user_id' => 'required|integer|exists:users,id',
         ]);
         $user = User::findOrFail($request->user_id);
 
         // Проверяем, не добавлен ли уже пользователь
-        if (!$project->users()->where('user_id', $user->id)->exists()) {
+        if (! $project->users()->where('user_id', $user->id)->exists()) {
             $project->users()->attach($user->id);
             // send mail
             try {
                 Mail::to($user)->queue(new AddUserToProjectMail($project, $user));
             } catch (\Exception $e) {
-                Log::error('Ошибка при постановке письма в очередь: '. $e->getMessage());
+                Log::error('Ошибка при постановке письма в очередь: '.$e->getMessage());
             }
 
             return redirect()->back()->with('success', 'User added!');
@@ -150,7 +154,7 @@ final class ProjectController extends Controller
         return redirect()->back()->with('error', 'User already in project!');
     }
 
-    public function removeUserFromProject( Project $project, User $user): RedirectResponse
+    public function removeUserFromProject(Project $project, User $user): RedirectResponse
     {
         // Проверяем, что пользователь есть в проекте
         if ($project->users()->where('user_id', $user->id)->exists()) {

@@ -1,4 +1,5 @@
 <?php
+
 return [
     'clients' => 'Клиенты',
     'name' => 'Имя',

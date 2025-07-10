@@ -10,9 +10,10 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
 {
     public function usersByRoleList(string|array $role): Collection
     {
-        if ($role == []){
+        if ($role == []) {
             return $this->list();
         }
+
         return $this->model::role($role)->get();
     }
 }

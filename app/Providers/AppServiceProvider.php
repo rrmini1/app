@@ -21,13 +21,13 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(UserRepositoryInterface::class,
-            fn() => new UserRepository(new User));
+            fn () => new UserRepository(new User));
 
         $this->app->singleton(ProjectRepositoryInterface::class,
-            fn() => new ProjectRepository(new Project));
+            fn () => new ProjectRepository(new Project));
 
         $this->app->singleton(StageRepositoryInterface::class,
-            fn() => new StageRepository(new Stage));
+            fn () => new StageRepository(new Stage));
     }
 
     /**
